@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords"
+          content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+    {% block stylesheets %}
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <!-- themify-icons line icon -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/themify-icons.css') }}">
+        <!-- ico font -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/icofont.css') }}">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/feather.css') }}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.mCustomScrollbar.css') }}">
+
+        <!-- owl carousel css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.default.css') }}">
+        <!-- swiper css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/swiper.min.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/table.css') }}">
+
+        <!-- Chartlist chart css -->
+        <link rel="stylesheet" href="{{ asset('css/chartist.css') }}" type="text/css" media="all">
+
+        <!-- Date-time picker css -->
+        <link rel="stylesheet" type="text/css"
+              href="{{ asset('css/bootstrap-datetimepicker.css') }}">
+        <!-- Date-range picker css  -->
+        <link rel="stylesheet" type="text/css"
+              href="{{ asset('css/daterangepicker.css') }}" />
+        <!-- Date-Dropper css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/datedropper.min.css') }}" />
+        <!-- Color Picker css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/spectrum.css') }}" />
+        <!-- Mini-color css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.minicolors.css') }}" />
+
+        <link rel="stylesheet" href="{{ asset('lobibox/dist/css/Lobibox.min.css') }}"/>
+
+
+
+        <style>
+            .pcoded .pcoded-item.pcoded-left-item>li>a>.pcoded-micon {
+                background-color: transparent !important;
+            }
+            </style>
+    {% endblock %}
+
+<body>
+
+<!-- Pre-loader start -->
+<div class="theme-loader">
+    <div class="ball-scale">
+        <div class='contain'>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+            <div class="ring">
+                <div class="frame"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+        <nav class="navbar header-navbar pcoded-header">
+            <div class="navbar-wrapper">
+
+                <div class="navbar-logo" style="background: #fff">
+                    <a class="mobile-menu" id="mobile-collapse" href="#!">
+                        <i class="feather icon-menu"></i>
+                    </a>
+                    <a href="{{ path('home') }}">
+                        <img class="img-fluid" src="{{ asset('images/logo.png') }}" style="max-width: 50% !important;" alt="Theme-Logo" />
+                    </a>
+                    <a class="mobile-options">
+                        <i class="feather icon-more-horizontal"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-container">
+                    <ul class="nav-left">
+                        <li>
+                            <a href="#!" onclick="javascript:toggleFullScreen()">
+                                <i class="feather icon-maximize full-screen"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav-right">
+
+                        <li class="user-profile header-notification">
+
+                            <div class="dropdown-primary dropdown">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="{{ asset('images/avatar.png')}}" class="img-radius"
+                                         alt="User-Profile-Image">
+                                    <span>{{app.user}}</span>
+                                    <i class="feather icon-chevron-down"></i>
+                                </div>
+                                <ul class="show-notification profile-notification dropdown-menu"
+                                    data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+
+                                    <li>
+                                        <a href="{{ path('app_logout')}}" style="color: #404e67 !important; font-weight: bold;">
+                                            <i class="feather icon-log-out"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <!-- Sidebar inner chat end-->
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <nav class="pcoded-navbar">
+                    <div class="pcoded-inner-navbar main-menu">
+                        <div class="pcoded-navigatio-lavel">Navigation</div>
+                        <ul class="pcoded-item pcoded-left-item">
+                            <li class="{% if app.request.requesturi  == path('home') %}active{% endif %}">
+                                <a href="{{ path('home') }}">
+                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                    <span class="pcoded-mtext">Dashboard</span>
+                                </a>
+
+                            </li>
+
+                            {% if is_granted("ROLE_SuperAdmin")  %}
+
+                            <li class="{% if app.request.requesturi  == path('users') %}active{% endif %}">
+                                <a href="{{ path('users') }}">
+                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                    <span class="pcoded-mtext">Users</span>
+                                </a>
+
+                            </li>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_Expert') %}
+                            <li class="{% if app.request.requesturi  == path('quizs') %}active{% endif %}">
+                                <a href="{{ path('quizs') }}">
+                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                    <span class="pcoded-mtext">Quizs</span>
+                                </a>
+
+                            </li>
+
+                            <li class="{% if app.request.requesturi  == path('reponses') %}active{% endif %}">
+                                <a href="{{ path('reponses') }}">
+                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                    <span class="pcoded-mtext">Reponses</span>
+                                </a>
+
+                            </li>
+                            {% endif %}
+
+
+                            {% if is_granted('ROLE_Correcteur') %}
+                            <li class="{% if app.request.requesturi  == path('candidatures') %}active{% endif %}">
+                                <a href="{{ path('candidatures') }}">
+                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                    <span class="pcoded-mtext">Candidatures</span>
+                                </a>
+
+                            </li>
+                            {% endif %}
+
+
+                        </ul>
+
+
+
+
+                    </div>
+                </nav>
+                <div class="pcoded-content">
+
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+
+                                <div class="page-body">
+                                    {% block body %}
+
+                                    {% endblock %}
+
+
+                                    <!--Multi Model Start-->
+                                    <div class="modal fade" id="myModal">
+                                        <div class="modal-dialog" id="corps_modal">
+
+                                        </div>
+                                    </div>
+
+                                    <style>
+                                        .corps_modal{
+                                            background: #FFF;
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+
+                            <div id="styleSelector--">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<![endif]-->
+<!-- Warning Section Ends -->
+{% block javascripts %}
+
+<!-- Required Jquery -->
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+<!-- Chart js -->
+<script type="text/javascript" src="{{ asset('js/Chart.js') }}"></script>
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.bootstrap4.min.css') }}">
+
+    <!-- data-table js -->
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+<!-- amchart js -->
+<script src="{{ asset('js/amcharts.js') }}"></script>
+<script src="{{ asset('js/serial.js') }}"></script>
+<script src="{{ asset('js/light.js') }}"></script>
+<script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/SmoothScroll.js') }}"></script>
+<script src="{{ asset('js/pcoded.min.js') }}"></script>
+<!-- custom js -->
+<script src="{{ asset('js/vartical-layout.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/custom-dashboard.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/script.min.js') }}"></script>
+
+    <!-- owl carousel 2 js -->
+    <script type="text/javascript" src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/owl-custom.js') }}"></script>
+    <!-- swiper js -->
+    <script type="text/javascript" src="{{ asset('js/swiper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/swiper-custom.js') }}"></script>
+
+    <!-- Chartlist charts -->
+    <script src="{{ asset('js/chartist.js') }}"></script>
+    <script src="{{ asset('js/chartist-plugin-threshold.js') }}"></script>
+    <!-- Morris Chart js -->
+    <script src="{{ asset('js/raphael.min.js') }}"></script>
+    <script src="{{ asset('js/morris.js') }}"></script>
+    <!-- Custom js -->
+    <script src="{{ asset('js/morris-custom-chart.js') }}"></script>
+
+    <!-- Bootstrap date-time-picker js -->
+    <script type="text/javascript" src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <!-- Date-range picker js -->
+    <script type="text/javascript"
+            src="{{ asset('js/daterangepicker.js') }}"></script>
+    <!-- Date-dropper js -->
+    <script type="text/javascript" src="{{ asset('js/datedropper.min.js') }}"></script>
+    <!-- Color picker js -->
+    <script type="text/javascript" src="{{ asset('js/spectrum.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jscolor.js') }}"></script>
+    <!-- Mini-color js -->
+    <script type="text/javascript" src="{{ asset('js/jquery.minicolors.min.js') }}"></script>
+
+    !--<script src="bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <script src="{{ asset('lobibox/js/Lobibox.js') }}"></script>
+    <script src="{{ asset('lobibox/demo/demo.js') }}"></script>
+
+    <script>
+
+        $( document ).ready(function() {
+            $('form *').prop('autocomplete', 'off');
+        });
+    </script>
+
+
+
+{% block javascriptss%}
+
+
+{% endblock %}
+    {% block scripttab %}
+    {% endblock %}
+    {% block scriptdate %}
+    {% endblock %}
+
+{% endblock %}
+</body>
+
+</html>
+

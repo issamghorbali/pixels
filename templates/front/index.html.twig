@@ -1,0 +1,37 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Quizs{% endblock %}
+
+{% block body %}
+
+    {% for quiz in quizs %}
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <p class="card-text">{{ quiz.title }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('inscription',{'id':quiz.id}) }}">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Démarrer le test</button>
+                                    </a>
+
+                                </div>
+                                <small class="text-muted">{{ quiz.duree }} mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    {% else %}
+        <div class="alert alert-danger background-danger col-md-12">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="icofont icofont-close-line-circled text-white"></i>
+            </button>
+            <strong></strong>
+            <code> Aucun quiz trouvé</code>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

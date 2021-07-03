@@ -1,0 +1,63 @@
+.card .card-block table thead {
+    background: #01a9ac;
+    color: #fff;
+}
+
+
+table.dataTable {
+    border-collapse: 0 !important;
+}
+.dataTables_wrapper table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.modal-header{
+    background: #01a9ac !important;
+    color: #fff;
+}
+
+.modal-footer{
+}
+
+.card-block ul li{
+    font-size: 15px;
+    font-weight: 600 !important;
+    line-height: 35px;
+}
+.statustic-card .text-center{
+    font-size: 15px  !important;
+    font-weight: 600 !important;
+    line-height: 35px;
+}
+
+.m-b-0{
+    font-size: 15px  !important;
+    font-weight: 600 !important;
+    line-height: 35px;
+    width: 109%;
+}
+
+.pcoded .pcoded-header{
+    background: #404E67 !important;
+    color: #fff !important;
+}
+.pcoded .pcoded-header a {
+    color: #fff !important;
+}
+.pcoded .pcoded-header .navbar-logo a {
+    color: #404e67 !important;
+}
+.header-search{
+    display: none !important;
+}
+#styleSelector{
+    display: none !important;
+}
+
+.form-error{
+    font-size: 10px;
+    font-weight: bold;
+}

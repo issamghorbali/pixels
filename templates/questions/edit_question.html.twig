@@ -1,0 +1,134 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit question</h4>
+        <button type="button" class="close"
+                data-dismiss="modal"
+                aria-hidden="true">×</button>
+    </div>
+    <div class="container"></div>
+    <div class="modal-body">
+
+        <div class="card-block">
+
+
+            <form id="form">
+
+                {{ form_errors(form) }}
+
+
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Question <span class="text-danger">*</span></label>
+
+
+                        {{ form_widget(form.title, {
+                            'attr': {'placeholder': '', 'class':'form-control'}
+                        }) }}
+
+
+                        <span class="text-danger form-error" id="error_title"></span>
+
+                    </div>
+                </div>
+
+
+                {{ form_row(form._token) }}
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer"> <a href="#"
+                                  data-dismiss="modal"
+                                  class="btn">Close</a>
+        <a href="#" class="btn btn-primary" onclick="save_question()">Save
+            changes</a>
+    </div>
+    <!-- /Add User Modal -->
+    <div class="overlay2"></div>
+</div>
+{% block script %}
+
+    <script>
+
+
+        function save_question(){
+
+            $(".overlay2").show();
+            $(".form-error").html('');
+            $('input').removeClass('input_error');
+            var form = document.getElementById("form");
+// or with jQuery
+//var form = $("#myform")[0];
+
+            $.ajax({
+                url: "{{ path('update_question', {'id':question.id}) }}",
+                data: new FormData(form),// the formData function is available in almost all new browsers.
+                type:"post",
+                contentType:false,
+                processData:false,
+                cache:false,
+                dataType:"json", // Change this according to your response from the server.
+                error:function(err){
+                    $(".overlay2").hide();
+                    console.error(err);
+                },
+                success:function(data){
+                    $(".overlay2").hide();
+                    console.log(data);
+                    response=data;
+                    if(response.result==0){
+                        console.log(response);
+
+                        for (var key in response.data) {
+
+                            $("#error_"+key).html('<span class="form-error-icon badge badge-danger text-uppercase">Error</span>'+response.data[key]+'');
+                            $("#"+key).addClass('input_error');
+                            if(jQuery.type(response.data[key])=='object') {
+                                for (var key2 in response.data[key]) {
+                                    //alert(response.data[key][key2]);
+                                    $("#error_"+key).html('<span class="form-error-icon badge badge-danger text-uppercase">Error</span>'+response.data[key][key2]+'');
+
+
+
+                                }
+
+                            }
+                        }
+                    }else {
+                        $('#myModal').modal('hide');
+                        Lobibox.notify('success', {
+                            soundPath: '{{ asset("sounds/") }}',
+                            size: 'mini',
+                            position: "top right",
+                            title: '',
+                            msg: 'The recording has been successfully added.'
+                        });
+
+                        document.location.reload();
+
+
+                    }
+
+                },
+                // dt contains the initialized instance of DataTables
+
+                complete:function(){
+                    $(".overlay2").hide();
+                    console.log("Request finished.");
+
+
+                }
+            });
+
+
+
+        }
+
+
+    </script>
+{% endblock %}

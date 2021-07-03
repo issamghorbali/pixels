@@ -1,0 +1,162 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Quizs{% endblock %}
+
+{% block body %}
+
+
+
+    <form id="form" class="col-sm-12">
+
+        {{ form_errors(form) }}
+
+
+
+
+        <div class="col-sm-6 " style="float:left;">
+            <div class="form-group">
+                <label>Nom <span class="text-danger">*</span></label>
+                {{ form_widget(form.nom, {
+                    'attr': {'placeholder': '', 'class':'form-control'}
+                }) }}
+                <span class="text-danger form-error" id="error_nom"></span>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6"  style="float:left;">
+            <div class="form-group">
+                <label>Prénom <span class="text-danger">*</span></label>
+                {{ form_widget(form.prenom, {
+                    'attr': {'placeholder': '', 'class':'form-control'}
+                }) }}
+                <span class="text-danger form-error" id="error_prenom"></span>
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-6"  style="float:left;">
+            <div class="form-group">
+                <label>annee_experience <span class="text-danger">*</span></label>
+                {{ form_widget(form.annee_experience, {
+                    'attr': {'placeholder': '', 'class':'form-control'}
+                }) }}
+                <span class="text-danger form-error" id="error_annee_experience"></span>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6"  style="float:left;">
+            <div class="form-group">
+                <label>Langage <span class="text-danger">*</span></label>
+                {{ form_widget(form.langage, {
+                    'attr': {'placeholder': '', 'class':'form-control'}
+                }) }}
+                <span class="text-danger form-error" id="error_langage"></span>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6"  style="float:left;">
+            <div class="form-group">
+                <label>Email <span class="text-danger">*</span></label>
+                {{ form_widget(form.email, {
+                    'attr': {'placeholder': '', 'class':'form-control'}
+                }) }}
+                <span class="text-danger form-error" id="error_email"></span>
+
+            </div>
+        </div>
+
+
+        {{ form_row(form._token) }}
+
+
+    </form>
+
+        <div class="container text-center col-md-12">
+
+
+               <div onclick="save_inscris()" class="btn btn-secondary my-2">Enregistrer</div>
+
+        </div>
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+
+        function save_inscris(){
+
+            $(".overlay2").show();
+            $(".form-error").html('');
+            $('input').removeClass('input_error');
+            var form = document.getElementById("form");
+// or with jQuery
+//var form = $("#myform")[0];
+
+            $.ajax({
+                url: "{{ path('save_candidat',{'id':quiz.id}) }}",
+                data: new FormData(form),// the formData function is available in almost all new browsers.
+                type:"post",
+                contentType:false,
+                processData:false,
+                cache:false,
+                dataType:"json", // Change this according to your response from the server.
+                error:function(err){
+                    $(".overlay2").hide();
+                    console.error(err);
+                },
+                success:function(data){
+                    $(".overlay2").hide();
+                    console.log(data);
+                    response=data;
+                    if(response.result==0){
+                        console.log(response);
+
+                        for (var key in response.data) {
+
+                            $("#error_"+key).html('<span class="form-error-icon badge badge-danger text-uppercase">Error</span>'+response.data[key]+'');
+                            $("#"+key).addClass('input_error');
+                            if(jQuery.type(response.data[key])=='object') {
+                                for (var key2 in response.data[key]) {
+                                    //alert(response.data[key][key2]);
+                                    $("#error_"+key).html('<span class="form-error-icon badge badge-danger text-uppercase">Error</span>'+response.data[key][key2]+'');
+
+
+
+                                }
+
+                            }
+                        }
+                    }else {
+
+                        url='{{ path('test',{'quiz':quiz.id , 'candidat':':candidat'}) }}';
+                        url=url.replace(":candidat", data.id);
+                        document.location.replace(url);
+
+                    }
+
+                },
+                // dt contains the initialized instance of DataTables
+
+                complete:function(){
+                    $(".overlay2").hide();
+                    console.log("Request finished.");
+
+
+                }
+            });
+
+
+
+        }
+
+
+    </script>
+{% endblock %}
+

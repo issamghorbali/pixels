@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CANDIDATURES{% endblock %}
+
+{% block body %}
+    <!-- Page-header start -->
+    <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-6">
+                <div class="page-header-title">
+                    <div class="d-inline">
+                        <h4>Candidatures Info</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+
+                <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+
+                        <li class="breadcrumb-item"  style="float: left;">
+                            <a href="{{ path('home')}}">  <i class="feather icon-home"></i> </a>
+                        </li>
+                        <li class="breadcrumb-item"  style="float: left;"><a href="#!">Candidatures</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page-header end -->
+
+    <!-- Page body start -->
+    <!-- Page body start -->
+    <div class="page-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Bootstrap tab card start -->
+                <div class="card">
+                    <div class="card-header">
+
+                        <h5> Quiz: {{ candidat.getQuiz() }}</h5>
+                        <p></p>
+
+                        <h5> Candidat: {{ candidat.nom }}   {{ candidat.prenom }}</h5>
+                        <p></p>
+                        <h5>Experience: {{ candidat.getAnneeExperience() }}</h5>
+                        <p></p>
+                            <h5>Language: {{ candidat.langage }}</h5>
+                        <p></p>
+                                <h5> Email: {{ candidat.email }}</h5>
+                        <p></p>
+                        <p></p>
+                        <h5>correcteur :{{ candidat.getCorrecteur() }}
+                    </div>
+
+                </div>
+                <!-- Bootstrap tab card end -->
+            </div>
+
+
+
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+                        <div class="card">
+                            <div class="card-header">
+
+                                <h4>Reponses Candidature</h4>
+
+                                {% for question in candidat.getQuiz().getQuestions() %}
+
+                                    <div class="form-group">
+                                        <strong>{{ question.title }}  </strong>
+                                    </div>
+
+                                    {% for option in question.getOptionQuestions() %}
+
+                                        <div class="checkbox">
+                                            {% if option.id in reponses_candidat %}
+                                                <span> {{ option.title }}</span>
+                                            {% else %}
+                                                <span> <del>{{ option.title }}</del></span>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+                        <!-- Bootstrap tab card end -->
+                    </div>
+
+
+
+            <div class="col-sm-12">
+                <!-- Bootstrap tab card start -->
+                <div class="card">
+                    <div class="card-header">
+
+                        {% if note %}
+                            <h4>Notes</h4>
+                            Note:{{ note.note }}
+                            <br>
+                            Description:{{ note.description }}
+                        {% else %}
+
+                            <button class="btn btn-primary float-right"  onclick="add_note()" style="position: relative; z-index: 9;"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add Note</button>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+                <!-- Bootstrap tab card end -->
+            </div>
+
+
+
+                </div></div></div></div>
+
+
+
+
+    </div>
+{% endblock %}
+
+{% block scripttab %}
+<script>
+    function add_note() {
+        url='{{ path('add_note',{'id':candidat.id}) }}';
+        $('#corps_modal').load(url);
+        $('#myModal').modal();
+
+    }
+</script>
+{% endblock %}

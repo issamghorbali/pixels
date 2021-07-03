@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block body %}
+    <!-- Page-header start -->
+    <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-6">
+                <div class="page-header-title">
+                    <div class="d-inline">
+                        <h4>Questions</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+
+                <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+
+                        <li class="breadcrumb-item"  style="float: left;">
+                            <a href="{{ path('home')}}">  <i class="feather icon-home"></i> </a>
+                        </li>
+                        <li class="breadcrumb-item"  style="float: left;"><a href="#!">Questions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page-header end -->
+
+    <!-- Page body start -->
+    <!-- Page body start -->
+    <div class="page-body">
+        <div class="col-md-12">
+
+            <button class="btn btn-primary float-right"  onclick="add_question()" style="position: relative; z-index: 9;"><i class="fa fa-plus" aria-hidden="true"></i>
+                Add Question</button>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <!-- Bootstrap tab card start -->
+                <div >
+
+
+
+                    {% for question in questions %}
+
+                        <div class="card">
+                            <div class="card-block caption-breadcrumb">
+                                <div class="breadcrumb-header">
+                                    <h5>{{ question.title }}</h5>
+                                    {% for option in question.getOptionQuestions() %}
+<hr>
+                                    <span>{{ option.title }}</span>
+                                    {% endfor %}
+
+                                </div>
+                                <div class="page-header-breadcrumb">
+                                    <ul class="breadcrumb-title">
+                                        <button class="btn btn-primary float-right"  onclick="add_option('{{ question.id }}')" style="position: relative; z-index: 9;"><i class="fa fa-plus" aria-hidden="true"></i>
+                                            Add Option</button>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div></div></div></div>
+
+
+
+
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    {% block scripttab %}
+
+
+        <script>
+            function add_question() {
+                url='{{ path('add_question',{'id':quiz.id}) }}';
+                $('#corps_modal').load(url);
+                $('#myModal').modal();
+
+            }
+            function edit_quiz(id) {
+                url='{{  path('edit_question', {'id': ':id'}) }}';
+                url=url.replace(":id", id);
+                $('#corps_modal').html('');
+                $('#corps_modal').load(url);
+                $('#myModal').modal();
+                ;
+            }
+
+            function add_option(id) {
+                url='{{  path('add_option', {'id': ':id'}) }}';
+                url=url.replace(":id", id);
+                $('#corps_modal').load(url);
+                $('#myModal').modal();
+
+            }
+            function edit_option(id) {
+                url='{{  path('edit_option', {'id': ':id'}) }}';
+                url=url.replace(":id", id);
+                $('#corps_modal').html('');
+                $('#corps_modal').load(url);
+                $('#myModal').modal();
+                ;
+            }
+        </script>
+
+        <script>
+            function delete_question(id) {
+                Lobibox.confirm({
+                    msg: "Are you sure you want to delete this question?",
+                    callback: function ($this, type) {
+                        if (type === 'yes') {
+
+                            var formData = new FormData(); // Formulaire vide à cet instant
+                            formData.append('id',id);
+
+                            $.ajax({
+                                url: "{{ path('delete_question') }}",
+                                data : formData,
+                                type:"post",
+                                contentType:false,
+                                processData:false,
+                                cache:false,
+
+                                error:function(err){
+                                    console.error(err);
+                                },
+                                success:function(data){
+
+                                    Lobibox.notify('success', {
+                                        size: 'mini',
+                                        position: "top right",
+                                        title: '',
+                                        msg: 'The recording has been successfully deleted.'
+                                    });
+
+
+
+                                },
+                                complete:function(){
+                                    console.log("Request finished.");
+
+
+                                }
+                            });
+
+
+
+                        }
+                    }
+                });
+            }
+        </script>
+    {% endblock %}
+    </div>
+{% endblock %}

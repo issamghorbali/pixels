@@ -1,0 +1,142 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Quizs{% endblock %}
+
+{% block body %}
+
+    <section class="jumbotron text-center col-md-12" style="border-bottom: solid 2px #ccc">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ quiz.title }}</h1>
+            <p class="lead text-muted"></p>
+            <p id="demo" style="font-size: 20px; font-weight: bold; color: #f00"></p>
+        </div>
+    </section>
+
+
+
+    <script>
+        // Set the date we're counting down to
+        var minutesToAdd={{ quiz.duree }};
+        var currentDate = new Date();
+        var futureDate = new Date(currentDate.getTime() + minutesToAdd*60000);
+        var countDownDate = futureDate.getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+                $('#btn_save').hide();
+            }
+        }, 1000);
+    </script>
+<section class="jumbotron col-md-12">
+    <form id="form">
+    {% for question in quiz.getQuestions() %}
+
+        <div class="form-group">
+            <h6> {{ question.title }}  </h6>
+        </div>
+
+        {% for option in question.getOptionQuestions() %}
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="{{ option.id }}" value="{{ option.id }}"> {{ option.title }}</label>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+
+    </form>
+
+
+
+    <div class="container text-center col-md-12">
+
+
+        <div onclick="save_test()" id="btn_save" class="btn btn-secondary my-2">Enregistrer</div>
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+
+        function save_test(){
+
+            $(".overlay2").show();
+            $(".form-error").html('');
+            $('input').removeClass('input_error');
+            var form = document.getElementById("form");
+// or with jQuery
+//var form = $("#myform")[0];
+
+            $.ajax({
+                url: "{{ path('save_test',{'quiz':quiz.id, 'candidat':candidat.id}) }}",
+                data: new FormData(form),// the formData function is available in almost all new browsers.
+                type:"post",
+                contentType:false,
+                processData:false,
+                cache:false,
+                dataType:"json", // Change this according to your response from the server.
+                error:function(err){
+                    $(".overlay2").hide();
+                    console.error(err);
+                },
+                success:function(data){
+                    $(".overlay2").hide();
+                    console.log(data);
+                    response=data;
+                    if(response.result==0){
+                        console.log(response);
+
+
+                    }else {
+
+                        alert('test enregistré');
+                        document.location.replace('{{ path('front') }}');
+
+                    }
+
+                },
+                // dt contains the initialized instance of DataTables
+
+                complete:function(){
+                    $(".overlay2").hide();
+                    console.log("Request finished.");
+
+
+                }
+            });
+
+
+
+        }
+
+
+    </script>
+{% endblock %}
+
