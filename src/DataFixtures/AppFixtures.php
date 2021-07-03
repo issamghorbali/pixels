@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
         $user->setFirstName('super');
         $user->setLastName("admin");
         $user->setemail('superadmin@gmail.com');
-        $user->setRoles(['ROLE_SyperAdmin']);
+        $user->setRoles(['ROLE_SuperAdmin']);
 
         $user->setPassword($this->passwordEncoder->encodePassword( $user,'1234'));
 
