@@ -27,6 +27,11 @@ composer install
   -login: superadmin@gmail.com
   
   -password: 1234
+  
+Link demo Front: https://www.olive-craft.com/pixels/public/
+
+Backend: https://www.olive-craft.com/pixels/public/admin/home
+
  
 
  
