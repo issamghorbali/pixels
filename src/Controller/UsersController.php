@@ -120,7 +120,7 @@ class UsersController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         if($request->isXmlHttpRequest()) {
-            $form =  $this->createForm(UserType::class);
+            $form =  $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
             if (!$form->isValid()) {
 
@@ -257,8 +257,8 @@ class UsersController extends AbstractController
             $role=str_replace(',ROLE_USER' ,'', implode(',',$user->getRoles()));
 
             if($user->getPicture()!='')
-                  $picture='<span class="avatar"><img src="http://localhost/quizz/public/users/'.$user->getPicture().'" alt=""></span>';
-              else $picture='<span class="avatar"><img src="http://localhost/quizz/public/users/avatar.jpg'.'" alt=""></span>';
+                  $picture='<span class="avatar"><img src="'.$_ENV['SITE_BASE_URL'].'/public/users/'.$user->getPicture().'" alt=""></span>';
+              else $picture='<span class="avatar"><img src="'.$_ENV['SITE_BASE_URL'].'/public/users/avatar.jpg'.'" alt=""></span>';
             $tab2['picture']=$picture;
             $tab2['name'] = $user->getFirstName().' '.$user->getLastName();
 
