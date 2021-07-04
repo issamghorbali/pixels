@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, groups={}, message="It looks like your already have an account!")
+ * @UniqueEntity(fields={"email"},  message="It looks like your already have an account!")
  */
 class User implements UserInterface
 {
