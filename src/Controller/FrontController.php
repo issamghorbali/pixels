@@ -75,13 +75,13 @@ class FrontController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function save_test(Quiz $quiz, Condidat $condidat,Request $request,EntityManagerInterface $manager)
+    public function save_test(Quiz $quiz, Condidat $candidat,Request $request,EntityManagerInterface $manager)
     {
 
 $options=$request->request->all();
 foreach ($options as $option){
     $reponse=new Reponse();
-    $reponse->setCondidate($condidat);
+    $reponse->setCondidate($candidat);
     $reponse->setOptionQuestion($manager->getRepository(OptionQuestion::class)->find($option));
     $manager->persist($reponse);
 }
